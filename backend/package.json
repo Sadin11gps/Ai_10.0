@@ -1,0 +1,19 @@
+{
+  "name": "ai-10.0-backend",
+  "version": "1.0.0",
+  "description": "Ai_10.0 ~•×RDS TEAM×•~ Multi AI Backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "axios": "^1.7.7"
+  },
+  "keywords": ["ai", "rds-team", "multi-ai", "chatbot"],
+  "author": "Sadin11gps & RDS TEAM",
+  "license": "MIT"
+}

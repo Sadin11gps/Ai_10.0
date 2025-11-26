@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ai_10.0~•×RDS TEAM×•~</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Ai_10.0~•×RDS TEAM×•~</h1>
+      <select id="model">
+        <option value="grok">Grok</option>
+        <option value="claude">Claude 3.5</option>
+      </select>
+    </header>
+
+    <div id="chat"></div>
+
+    <div class="input-box">
+      <input type="text" id="msg" placeholder="এখানে লেখো..." autofocus />
+      <input type="text" id="key" placeholder="Your API Key" />
+      <button onclick="send()">Send</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

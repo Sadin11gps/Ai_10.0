@@ -16,12 +16,12 @@ async function send() {
   const apiKey = keyInput.value.trim();
   const model = modelSelect.value;
 
-  if (!message || !apiKey) return alert("Message & API Key দরকার!");
+  if (!message) return alert("মেসেজ লেখো ভাই!");
 
   addMsg(message, 'user');
   msgInput.value = '';
 
-  const res = await fetch('https://ai-10-0-backend.onrender.com/api/chat', {  // পরে তোর লাইভ URL এখানে বসবে
+  const res = await fetch('https://ai-10-0-backend.onrender.com/api/chat', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ message, model, apiKey })

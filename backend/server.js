@@ -2,15 +2,17 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
+const { Telegraf } = require('telegraf');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const BOT_TOKEN = process.env.BOT_TOKEN || '8526094487:AAE_sjiAzkd_C65l5CskdlgLXLkKdPgVQgw';
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 
 app.get('/', (req, res) => {
-  res.send('<h1 style="text-align:center; margin-top:100px;">Ai_10.0~•×RDS TEAM×•~ Backend Running ⚡<br>FREE MODE: Gemini 1.5 Flash</h1>');
+  res.send('<h1 style="text-align:center; margin-top:100px;">Ai_10.0~•×RDS TEAM×•~ Backend Running ⚡<br>FREE MODE: Gemini + Telegram Bot LIVE</h1>');
 });
 
 app.post('/api/chat', async (req, res) => {
@@ -30,9 +32,8 @@ app.post('/api/chat', async (req, res) => {
       );
       reply = response.data.candidates[0].content.parts[0].text;
     }
-    // পরে HuggingFace, Grok, Claude যোগ করবি
     else {
-      reply = 'এই মডেলটা এখনো যোগ হয়নি। শুধু Gemini কাজ করছে (ফ্রি)!';
+      reply = 'এই মডেলটা এখনো যোগ হয়নি!';
     }
 
     res.json({ reply });
@@ -41,4 +42,26 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`Ai_10.0 FREE Backend LIVE on ${PORT}`));
+// Telegram Bot Setup
+const bot = new Telegraf(BOT_TOKEN);
+
+bot.start((ctx) => ctx.reply('হাই! Ai_10.0~•×RDS TEAM×•~ এ স্বাগতম! 🔥\nএখানে যেকোনো প্রশ্ন লেখো, আমি Gemini দিয়ে উত্তর দেব (সব ফ্রি)!\nওয়েবসাইট: https://ai-10-0.vercel.app'));
+
+bot.on('text', async (ctx) => {
+  const message = ctx.message.text;
+  try {
+    const response = await axios.post('https://ai-10-0-backend.onrender.com/api/chat', {
+      message,
+      model: 'gemini'
+    });
+    ctx.reply(response.data.reply || 'কোনো সমস্যা হয়েছে, আবার ট্রাই করো!');
+  } catch (err) {
+    ctx.reply('আমার একটু সমস্যা হচ্ছে... ওয়েবসাইটে চেক করো: https://ai-10-0.vercel.app');
+  }
+});
+
+bot.launch();
+console.log('Ai_10.0 Telegram Bot LIVE! @Ai10_RDS_Bot');
+
+// Express Server
+app.listen(PORT, () => console.log(`Ai_10.0 Backend on port ${PORT}`));
